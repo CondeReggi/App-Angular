@@ -1,0 +1,11 @@
+.contenedor{
+  padding: 50px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.containerMovies{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

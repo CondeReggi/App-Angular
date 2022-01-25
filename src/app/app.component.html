@@ -1,0 +1,20 @@
+<!-- <p>Hola Mundo</p> -->
+<app-menu></app-menu>
+
+<app-rating [maximoRating]="5"></app-rating>
+
+<div class="contenedor">
+  <div class="containerMovies">
+    <h2>Peliculas en Cines</h2>
+    <app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+  </div>
+
+  <div class="containerMovies">
+    <h2>Peliculas Proximas</h2>
+    <app-listado-peliculas [peliculas]="peliculasAEstrenar"></app-listado-peliculas>
+  </div>
+</div>
+<!--
+<input type="file" style="display: none" #cargador>
+
+<button (click)="cargador.click()" >Cargar Archivo</button> -->

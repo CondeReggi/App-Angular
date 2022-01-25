@@ -1,0 +1,16 @@
+<app-listado-generico [Listado]="peliculas">
+  <ng-container vacio>
+    <div>Mensaje Personalizado para contenido <b>vacio</b></div>
+  </ng-container>
+  <ng-container contenido>
+    <div *ngFor="let pelicula of peliculas; let index = index" class="peliculas_container" >
+      <div class="containerMovieCard">
+        <h3>Se llama: {{ pelicula.nombre | lowercase}} </h3>
+        {{ pelicula.fecha | date:"YYYY-MM-dd" }}
+        <p>cuesta {{ 500 | currency:'EUR' }}</p>
+        <button (click)="remover(index)" >Remove!</button>
+        <app-rating></app-rating>
+      </div>
+    </div>
+  </ng-container>
+</app-listado-generico>
