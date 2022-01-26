@@ -1,11 +1,10 @@
 .contenedor{
   padding: 50px;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .containerMovies{
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 25px;
+  margin-bottom: 30px;
 }

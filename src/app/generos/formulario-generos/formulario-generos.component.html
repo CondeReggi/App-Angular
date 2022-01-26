@@ -1,0 +1,20 @@
+<!-- <p>formulario-generos works!</p> -->
+
+<form (submit)="guardarCambios()" [formGroup]="form">
+  <mat-form-field> <!-- De material disign -->
+    <mat-label>Nombre*</mat-label>
+    <input formControlName="nombre" matInput/>
+    <mat-error *ngIf="form.invalid">
+
+      <label>{{ obtenerErrorCampoNombre() }}!</label>
+    </mat-error>
+  </mat-form-field>
+  <div>
+    <button mat-flat-button color="primary" [disabled]="form.invalid">
+      Guardar cambios
+    </button>
+    <a mat-stroked-button routerLink="/generos">
+      Cancelar
+    </a>
+  </div>
+</form>

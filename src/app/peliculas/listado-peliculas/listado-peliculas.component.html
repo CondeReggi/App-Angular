@@ -1,16 +1,39 @@
 <app-listado-generico [Listado]="peliculas">
+  <ng-container contenido>
+    <div class="peliculas_contenedor">
+      <div *ngFor="let pelicula of peliculas; let index = index" class="pelicula_container" >
+        <a>
+          <img [src]="pelicula.poster" alt="Poster" >
+        </a>
+        <p>
+          <a>{{ pelicula.titulo }}</a>
+        </p>
+        <div>
+          <a mat-flat-button color="primary">
+            Editar
+          </a>
+          <button mat-flat-button color="warn" type="button">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</app-listado-generico>
+
+
+<!-- <app-listado-generico [Listado]="peliculas">
   <ng-container vacio>
     <div>Mensaje Personalizado para contenido <b>vacio</b></div>
   </ng-container>
   <ng-container contenido>
     <div *ngFor="let pelicula of peliculas; let index = index" class="peliculas_container" >
       <div class="containerMovieCard">
-        <h3>Se llama: {{ pelicula.nombre | lowercase}} </h3>
+        <h3><b>{{ pelicula.nombre | lowercase }}</b></h3>
         {{ pelicula.fecha | date:"YYYY-MM-dd" }}
         <p>cuesta {{ 500 | currency:'EUR' }}</p>
         <button (click)="remover(index)" >Remove!</button>
-        <app-rating></app-rating>
+        <app-rating (rated)="manejarVoto($event , index)" ></app-rating>
+        <p *ngIf="peliculasRated[index]" >Su voto fue de: {{ peliculasRated[index] }}</p>
       </div>
     </div>
   </ng-container>
-</app-listado-generico>
+</app-listado-generico> -->

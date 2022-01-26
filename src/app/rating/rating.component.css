@@ -2,3 +2,7 @@
   color: orange;
   cursor: pointer;
 }
+
+mat-icon{
+  margin-top: 15px;
+}

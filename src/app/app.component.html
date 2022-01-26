@@ -1,19 +1,15 @@
 <!-- <p>Hola Mundo</p> -->
 <app-menu></app-menu>
-
-<app-rating [maximoRating]="5"></app-rating>
+<!--
+<input type="text" (input)="title = $event.target.value" placeholder="Hola">
+<input type="checkbox" checked (change)="ocultar = !ocultar" >Ocultar
+<app-ciclo-de-vida *ngIf="!ocultar" [titulo]="title" ></app-ciclo-de-vida> -->
+<!-- <app-rating [maximoRating]="5"></app-rating> -->
 
 <div class="contenedor">
-  <div class="containerMovies">
-    <h2>Peliculas en Cines</h2>
-    <app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
-  </div>
-
-  <div class="containerMovies">
-    <h2>Peliculas Proximas</h2>
-    <app-listado-peliculas [peliculas]="peliculasAEstrenar"></app-listado-peliculas>
-  </div>
+  <router-outlet></router-outlet>
 </div>
+
 <!--
 <input type="file" style="display: none" #cargador>
 
