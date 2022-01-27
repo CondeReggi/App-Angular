@@ -21,7 +21,7 @@ import { EditarActorComponent } from './actores/editar-actor/editar-actor.compon
 import { EditarGeneroComponent } from './generos/editar-genero/editar-genero.component';
 import { EditarPeliculaComponent } from './peliculas/editar-pelicula/editar-pelicula.component';
 import { EditarCineComponent } from './cine/editar-cine/editar-cine.component'
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { FormularioGenerosComponent } from './generos/formulario-generos/formulario-generos.component';
 import { FiltroPeliculasComponent } from './peliculas/filtro-peliculas/filtro-peliculas.component';
 import { FormularioActorComponent } from './actores/formulario-actor/formulario-actor.component';
@@ -30,7 +30,10 @@ import { InputMarkdownComponent } from './utilidades/input-markdown/input-markdo
 import { MarkdownModule } from 'ngx-markdown';
 import { FormularioCineComponent } from './cine/formulario-cine/formulario-cine.component'
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { MapaComponent } from './utilidades/mapa/mapa.component'
+import { MapaComponent } from './utilidades/mapa/mapa.component';
+import { FormularioPeliculasComponent } from './peliculas/formulario-peliculas/formulario-peliculas.component';
+import { SelectorMultipleComponent } from './utilidades/selector-multiple/selector-multiple.component';
+import { AutocompleteActoresComponent } from './actores/autocomplete-actores/autocomplete-actores.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +60,10 @@ import { MapaComponent } from './utilidades/mapa/mapa.component'
     InputImgComponent,
     InputMarkdownComponent,
     FormularioCineComponent,
-    MapaComponent
+    MapaComponent,
+    FormularioPeliculasComponent,
+    SelectorMultipleComponent,
+    AutocompleteActoresComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +72,8 @@ import { MapaComponent } from './utilidades/mapa/mapa.component'
     MaterialModule,
     ReactiveFormsModule,
     MarkdownModule.forRoot(),
-    LeafletModule
+    LeafletModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

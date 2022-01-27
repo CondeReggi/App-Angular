@@ -12,7 +12,9 @@ export class EditarCineComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   modelo: cineDTO = {
-    nombre: "Movie Center"
+    nombre: "Movie Center",
+    latitud: -34.451,
+    longitud: -42.8261
   };
 
   ngOnInit(): void {

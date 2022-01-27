@@ -1,8 +1,8 @@
 <mat-tab-group>
   <mat-tab label="Editar">
-    <mat-form-field appearance="fill">
-      <mat-label>Biografia</mat-label>
-      <textarea matInput (input)="inputTextArea($event.target.value)" ></textarea>
+    <mat-form-field appearance="fill" (change)="onChange.emit($event.target.value)" >
+      <mat-label>{{ tipo }}</mat-label>
+      <textarea matInput [(ngModel)]="contenidoMarkdown" ></textarea>
     </mat-form-field>
   </mat-tab>
   <mat-tab label="Preview">

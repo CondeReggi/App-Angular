@@ -1,3 +1,4 @@
 <h2>Creacion de Pelicula</h2>
 
-<button mat-flat-button color="primary" type="button" (click)="guardarCambios()">Guardar cambios!</button>
+<app-formulario-peliculas (OnSubmit)="guardarCambios($event)" ></app-formulario-peliculas>
+
