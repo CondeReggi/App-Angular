@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { parsearErroresApi } from 'src/app/utilidades/utilidades';
 import { primeraLetraMayuscula } from 'src/app/utilidades/validadores/primeraLetraMayuscula';
 import { generoCreacionDTO } from '../generos';
+import { GenerosService } from '../generos.service';
 
 @Component({
   selector: 'app-crear-generos',
@@ -11,18 +13,31 @@ import { generoCreacionDTO } from '../generos';
 })
 export class CrearGenerosComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router , private generosServices: GenerosService ) { }
 
   ngOnInit(): void{
-
   }
 
-  guardarCambios(genero: generoCreacionDTO){
-    alert("cambios guardados: " + genero.nombre);
+  @Output()
+  errores: string[] = []
 
-    this.router.navigate( //useHistory similar
-      ["/generos"]
-    )
+  guardarCambios(genero: generoCreacionDTO){
+    // alert("cambios guardados: " + genero.nombre);
+
+    this.generosServices.postearGenero( genero ).subscribe( (e) => {
+      this.router.navigate( //useHistory similar
+        ["/generos"]
+      )
+    }, err => {
+      // console.log(err);
+
+      // this.errores = err.error.errors.Nombre;
+      // console.log(this.errores);
+      this.errores = parsearErroresApi(err)
+
+      // console.log(this.errores);
+    } )
+
   }
 
 }

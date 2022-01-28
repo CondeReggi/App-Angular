@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { parsearErroresApi } from 'src/app/utilidades/utilidades';
 import { cineCreacionDTO } from '../cine';
+import { CineService } from '../cine.service';
 
 @Component({
   selector: 'app-crear-cine',
@@ -9,12 +11,22 @@ import { cineCreacionDTO } from '../cine';
 })
 export class CrearCineComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private route: Router, private cinesServices: CineService) { }
+
+  // @Input()
+  // modelo: actorCreacionDTO;
 
   ngOnInit(): void {
   }
 
-  guardarCambios(cine: cineCreacionDTO){
-    console.log(cine);
+  errores = [];
+
+  guardarCambios(actor: cineCreacionDTO){
+    // .... /
+    console.log(actor);
+
+    this.cinesServices.crearCine(actor).subscribe( () => {
+      this.route.navigate(["/cines"])
+    }, err => this.errores = parsearErroresApi(err) )
   }
 }

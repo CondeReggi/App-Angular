@@ -24,7 +24,7 @@ export class FormularioGenerosComponent implements OnInit {
     this.form = this.formBuilder.group({ // Crea un objeto con valores iniciales para el formulario
       nombre: [
         "", {
-          validators: [ Validators.required , Validators.maxLength(120) , Validators.minLength(6) , primeraLetraMayuscula() ]
+          validators: [ Validators.required , Validators.maxLength(120) , Validators.minLength(6) /* , primeraLetraMayuscula()  */ ]
         }
       ]
     })
@@ -33,6 +33,10 @@ export class FormularioGenerosComponent implements OnInit {
       this.form.patchValue(this.modelo);
     }
   }
+
+  @Input()
+  @Output()
+  errores: string[] = [];
 
   guardarCambios(){
     this.onSubmit.emit(this.form.value)
@@ -51,6 +55,10 @@ export class FormularioGenerosComponent implements OnInit {
     if( campo.hasError('primeraLetraMayuscula') ){
       return campo.getError('primeraLetraMayuscula').mensaje;
     }
+
+    // if ( this.errores.length > 0 ){
+    //   return this.errores.join(" , ");
+    // }
 
     return ''
   }
