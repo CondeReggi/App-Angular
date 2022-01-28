@@ -41,6 +41,7 @@ export class IndiceCineComponent implements OnInit {
 
   borrarRegistroCine(id: number){
     //Crear Metodo para borrar
+    console.log(id);
 
     if (confirm("Estas seguro que deseas borrar")){
       this.cinesServices.borrarCinePorId( id ).subscribe( (data) => {
