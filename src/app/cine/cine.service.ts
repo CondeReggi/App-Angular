@@ -13,8 +13,14 @@ export class CineService {
 
   private apiURL = environment.apiURL + "cines";
 
-  crearCine(cine: cineCreacionDTO){
+  crearCine(cine: cineCreacionDTO)
+  {
     return this.http.post(this.apiURL, cine);
+  }
+
+  obtenerPorId( id: number ): Observable<cineDTO>
+  {
+    return this.http.get<cineDTO>(`${this.apiURL}/${id}`);
   }
 
   obtenerTodos(pagina: number , cantidadElementosAMostrar: number): Observable<any>{
@@ -26,6 +32,10 @@ export class CineService {
       observe: 'response',
       params
     })
+  }
+
+  editarCine( id: number, cineCreacion : cineCreacionDTO ){
+    return this.http.put(`${this.apiURL}/${id}` , cineCreacion);
   }
 
   borrarCinePorId(id: number){

@@ -1,8 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatTable } from '@angular/material/table';
+import { actorPeliculaDTO } from '../actor';
+import { ActoresService } from '../actores.service';
 
 @Component({
   selector: 'app-autocomplete-actores',
@@ -11,47 +13,33 @@ import { MatTable } from '@angular/material/table';
 })
 export class AutocompleteActoresComponent implements OnInit {
 
-  constructor() { }
+  constructor(private actoresService : ActoresService) { }
 
   control: FormControl = new FormControl(); //Un FormControl nos permite realizar el seguimiento de un campo de manera individual@@
   actorSeleccionado = ''
 
-  actores = [
-    {nombre: 'Tom Holland', personaje: '' , foto: 'https://depor.com/resizer/YO4LUXRsZzbyILBBPY1hDero7JQ=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/TZSUEQ5IBZBORLPBFF2PNLONOM.jpg'},
-    {nombre: 'Tom Hancks', personaje: '' , foto: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Tom_Holland_MTV_2018_%2801%29.jpg/200px-Tom_Holland_MTV_2018_%2801%29.jpg'},
-    {nombre: 'Samuel ETO', personaje: '' , foto: 'data:image/jpeg;base64,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'}
-  ]
+  @Input()
+  actoresSeleccionados: actorPeliculaDTO[] = []
 
-  actoresFiltrados = []
-  actoresSeleccionados = []
+  actoresAMostrar: actorPeliculaDTO[] = []
   columnasAMostrar = ['imagen','nombre','personaje','acciones']
 
   @ViewChild(MatTable) table: MatTable<any>
 
   ngOnInit(): void {
-    this.control.valueChanges.subscribe(value => {
-      // console.log(value);
-
-      try{
-        if (!value) {
-          // console.log("entre");
-          this.actoresFiltrados = []
-        }else{
-          this.actoresFiltrados = this.actores.filter( x => x.nombre.toLowerCase().includes( <string>value.toLowerCase() ) )
-        }
-      }catch( err ){
-        // Guardar el error
+    this.control.valueChanges.subscribe(nombre => {
+      if (typeof nombre === 'string' && nombre){
+        this.actoresService.obtenerPorNombre(nombre).subscribe(actores => {
+          this.actoresAMostrar = actores;
+        })
       }
-
-      // console.log(this.actoresFiltrados);
-    })
+    });
   }
 
-
   optionSelected(event: MatAutocompleteSelectedEvent){
-    console.log(event.option.value);
-    this.control.patchValue('');
+    // console.log(event.option.value);
     this.actoresSeleccionados.push( event.option.value );
+    this.control.patchValue('');
 
     if (this.table !== undefined){
       this.table.renderRows();

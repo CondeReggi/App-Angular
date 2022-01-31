@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { actorPeliculaDTO } from 'src/app/actores/actor';
 import { MultipleSelectorModel } from 'src/app/utilidades/selector-multiple/MultipleSelectorModel';
 import { peliculaCreacionDTO, peliculaDTO } from '../pelicula';
 
@@ -12,33 +13,29 @@ export class FormularioPeliculasComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) { }
 
-  form: FormGroup
+  imagenCambiada = false;
 
+  form: FormGroup
+  @Input()
+  errores: string[] = [];
   @Input()
   modelo: peliculaDTO;
+
+  @Input()
+  generosNoSeleccionados: MultipleSelectorModel[];
+  @Input()
+  cinesNoSeleccionados: MultipleSelectorModel[];
+
+  @Input()
+  actoresSeleccionados: actorPeliculaDTO[] = [];
 
   @Output()
   OnSubmit: EventEmitter<peliculaCreacionDTO> = new EventEmitter<peliculaCreacionDTO>();
 
-
-  generosNoSeleccionados: MultipleSelectorModel[] = [
-    {llave: 1, valor: 'Terror'},
-    {llave: 2, valor: 'Comedia'},
-    {llave: 3, valor: 'Aventuras'},
-    {llave: 4, valor: 'Accion'},
-    {llave: 5, valor: 'Ciencia Ficcion'}
-  ]
-
-  generosSeleccionados: MultipleSelectorModel[] = []
-
-  cinesSeleccionados: MultipleSelectorModel[] = []
-
-  cinesNoSeleccionados: MultipleSelectorModel[] = [
-    {llave: 1, valor: 'Movie Center'},
-    {llave: 2, valor: 'TiendASDSAD'},
-    {llave: 3, valor: 'AventuraspEPE'},
-    {llave: 4, valor: 'PanchoVA!'},
-  ]
+  @Input()
+  generosSeleccionados: MultipleSelectorModel[] = [];
+  @Input()
+  cinesSeleccionados: MultipleSelectorModel[] = [];
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -48,8 +45,9 @@ export class FormularioPeliculasComponent implements OnInit {
       trailer: '',
       fechaLanzamiento: '',
       poster: '',
-      generosId: '',
-      cinesId: ''
+      generosIds: '',
+      cinesIds: '',
+      actores: ''
     })
 
     if (this.modelo !== undefined){
@@ -58,7 +56,8 @@ export class FormularioPeliculasComponent implements OnInit {
   }
 
   archivoSeleccionado(archivo: File){
-    this.form.get('poster').setValue(archivo)
+    this.form.get('poster').setValue(archivo);
+    this.imagenCambiada = true;
   }
 
   changeMarkDown(resumen: string){
@@ -66,8 +65,26 @@ export class FormularioPeliculasComponent implements OnInit {
   }
 
   guardarCambios(){
-    this.form.get('generosId').setValue( this.generosSeleccionados.map( valor => valor.llave ) )
-    this.form.get('cinesId').setValue( this.cinesSeleccionados.map( valor => valor.llave ) )
+    const generosIds = this.generosSeleccionados.map(val => val.llave);
+    this.form.get('generosIds').setValue(generosIds);
+
+    const cinesIds = this.cinesSeleccionados.map(val => val.llave);
+    this.form.get('cinesIds').setValue(cinesIds);
+
+    const actores = this.actoresSeleccionados.map( valor => {
+      return {
+        id: valor.id,
+        personaje: valor.personaje
+      }
+    })
+    this.form.get('actores').setValue(actores);
+
+    // console.log(generosIds ,cinesIds, actores );
+    if (!this.imagenCambiada){
+      this.form.patchValue({'poster': null});
+    }
+
     this.OnSubmit.emit(this.form.value); // Enviar informacion de la pelicula
+
   }
 }

@@ -3,7 +3,7 @@
     <input type="text" placeholder="Seleccione los actores" [value]="actorSeleccionado || ''" matInput [formControl]="control" [matAutocomplete]="auto"/>
   </mat-form-field>
   <mat-autocomplete #auto (optionSelected)="optionSelected($event)">
-    <mat-option *ngFor="let opcion of actoresFiltrados" [value]="opcion">
+    <mat-option *ngFor="let opcion of actoresAMostrar" [value]="opcion">
       <img [src]="opcion.foto" /> {{ opcion.nombre }}
     </mat-option>
   </mat-autocomplete>
