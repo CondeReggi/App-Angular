@@ -39,8 +39,10 @@ export class PeliculasService {
 
     //A vos te parece esto
 
-    if(pelicula.fechaLanzamiento){
-      formData.append('fechaEstreno', formatearFecha(pelicula.fechaLanzamiento));
+    if(pelicula.FechLanzamiento){
+      formData.append('fechLanzamiento', formatearFecha(pelicula.FechLanzamiento));
+
+      console.log(pelicula.FechLanzamiento , formatearFecha(pelicula.FechLanzamiento));
     }
 
     if(pelicula.poster){
@@ -50,6 +52,9 @@ export class PeliculasService {
     formData.append('generosIds', JSON.stringify(pelicula.generosIds));
     formData.append('cinesIds' , JSON.stringify(pelicula.cinesIds));
     formData.append('actores', JSON.stringify(pelicula.actores));
+
+    console.log(formData.get("fechLanzamiento"));
+
     return formData;
   }
 }

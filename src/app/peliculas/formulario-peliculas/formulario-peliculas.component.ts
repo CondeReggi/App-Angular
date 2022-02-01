@@ -43,7 +43,7 @@ export class FormularioPeliculasComponent implements OnInit {
       resumen: '',
       enCines: false,
       trailer: '',
-      fechaLanzamiento: '',
+      FechLanzamiento: '',
       poster: '',
       generosIds: '',
       cinesIds: '',

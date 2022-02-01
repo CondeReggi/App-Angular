@@ -1,28 +1,29 @@
 <div *ngIf="pelicula" class="contenedorPelicula">
-  <div>
-    <h2>{{ pelicula.titulo }} ({{ fechaLanzamiento.getFullYear() }})</h2>
+  <div class="container">
+    <div class="containerInfo">
+      <h2>{{ pelicula.titulo }} ({{ fechaLanzamiento }})</h2>
     <mat-chip-list>
       <mat-chip
         [routerLink]="['/peliculas/buscar']"
         [queryParams]="{ generoId: genero.id }"
         *ngFor="let genero of pelicula.generos"
-
       >
         {{ genero.nombre }}
       </mat-chip>
     </mat-chip-list>
-    | {{ fechaLanzamiento.toDateString() }} | Promedio: 0.0 | Tu voto: 0.0
-    <div style="display: flex;">
-      <span style="display: inline-block; margin-right: 1rem">
+    | {{ fechLanzamiento }} | Promedio: 0.0 | Tu voto: 0.0
+    </div>
+    <div style="display: flex; flex-wrap: wrap; flex-direction: column; justify-content: center; align-items: center;">
+      <span style="display: inline-block;">
         <img [src]="pelicula.poster" style="width: 225px; height: 315px; object-fit: cover;" />
       </span>
       <div *ngIf="pelicula.trailer">
         <iframe
-          width="560"
-          height="315"
+          width="450"
+          height="290"
           [src]="trailerURL"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-meda; gyroscope; picture-in-picture"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         ></iframe>
       </div>
@@ -46,6 +47,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div style="padding-left: 1rem; position: relative; width: 100%;" *ngIf="coordenadas.length > 0">
+      <h2>Mostrándose en los siguientes cines</h2>
+      <app-mapa [coordenadasIniciales]="coordenadas" [soloLectura]="true"></app-mapa>
     </div>
   </div>
 

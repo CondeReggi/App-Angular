@@ -6,7 +6,7 @@ export interface peliculaCreacionDTO{
   titulo: string;
   resumen: string;
   enCines: boolean;
-  fechaLanzamiento: Date;
+  FechLanzamiento: Date;
   trailer: string;
   poster: File;
   generosIds: number[];
@@ -19,7 +19,7 @@ export interface peliculaDTO {
   titulo: string;
   resumen: string;
   enCines: boolean;
-  fechaLanzamiento: Date;
+  fechLanzamiento: Date;
   trailer: string;
   poster: string;
   generos: generoDTO[];

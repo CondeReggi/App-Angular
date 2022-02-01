@@ -17,7 +17,7 @@ export class DetallePeliculasComponent implements OnInit {
 
   errores: string[] = [];
   pelicula: peliculaDTO;
-  fechaLanzamiento: Date;
+  fechaLanzamiento: string;
   trailerURL: SafeResourceUrl;
   coordenadas: CoordenadaConMensaje[];
 
@@ -28,7 +28,7 @@ export class DetallePeliculasComponent implements OnInit {
         console.log(pelicula);
 
         this.pelicula = pelicula;
-        this.fechaLanzamiento = new Date(this.pelicula.fechaLanzamiento);
+        this.fechaLanzamiento = pelicula.fechLanzamiento.toString().split('T')[0];
         this.trailerURL = this.generarURLYoutubeEmbed(this.pelicula.trailer);
         this.coordenadas = pelicula.cines.map( cine => {
           return {
@@ -37,6 +37,8 @@ export class DetallePeliculasComponent implements OnInit {
             mensaje: cine.nombre
           }
         })
+
+        console.log(this.pelicula , this.fechaLanzamiento , this.trailerURL ,this.coordenadas );
 
       }, err => this.errores = parsearErroresApi(err) )
     })
@@ -54,7 +56,7 @@ export class DetallePeliculasComponent implements OnInit {
       video_id = video_id.substring(0, positionAmpersand);
     }
 
-    return this.sanitizer.bypassSecurityTrustUrl(`https://www.youtube.com/embed/${video_id}`)
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video_id}`)
   }
 
 }
