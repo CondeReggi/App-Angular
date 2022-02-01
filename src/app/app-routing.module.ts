@@ -13,6 +13,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CrearPeliculaComponent } from './peliculas/crear-pelicula/crear-pelicula.component';
 import { EditarPeliculaComponent } from './peliculas/editar-pelicula/editar-pelicula.component';
 import { FiltroPeliculasComponent } from './peliculas/filtro-peliculas/filtro-peliculas.component';
+import { DetallePeliculasComponent } from './peliculas/detalle-peliculas/detalle-peliculas.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: "peliculas/buscar",
     component: FiltroPeliculasComponent
+  },
+  {
+    path: "peliculas/:id",
+    component: DetallePeliculasComponent
   },
   {
     path: "**",

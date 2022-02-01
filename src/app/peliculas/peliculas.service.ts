@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { formatearFecha } from '../utilidades/utilidades';
-import { peliculaCreacionDTO, peliculaPostGet } from './pelicula';
+import { peliculaCreacionDTO, peliculaDTO, peliculaPostGet } from './pelicula';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,11 @@ export class PeliculasService {
     return this.http.get<peliculaPostGet>(`${this.apiUrl}/PostGet`)
   }
 
+  public obtenerPorId(id: number): Observable<peliculaDTO>
+  {
+    return this.http.get<peliculaDTO>(`${this.apiUrl}/${id}`);
+  }
+
   public crear (pelicula: peliculaCreacionDTO): Observable<number>{
     const formData = this.ConstruirFormData(pelicula);
     // console.log("pelicula desde crear" , pelicula);
@@ -31,6 +36,8 @@ export class PeliculasService {
     formData.append('resumen', pelicula.resumen);
     formData.append('trailer', pelicula.trailer);
     formData.append('enCines', String(pelicula.enCines));
+
+    //A vos te parece esto
 
     if(pelicula.fechaLanzamiento){
       formData.append('fechaEstreno', formatearFecha(pelicula.fechaLanzamiento));

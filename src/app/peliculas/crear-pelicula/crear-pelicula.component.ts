@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MultipleSelectorModel } from 'src/app/utilidades/selector-multiple/MultipleSelectorModel';
 import { parsearErroresApi } from 'src/app/utilidades/utilidades';
 import { peliculaCreacionDTO } from '../pelicula';
@@ -11,7 +12,7 @@ import { PeliculasService } from '../peliculas.service';
 })
 export class CrearPeliculaComponent implements OnInit {
 
-  constructor(private peliculasService : PeliculasService) { }
+  constructor(private peliculasService : PeliculasService, private router : Router) { }
 
   generosNoSeleccionados: MultipleSelectorModel[];
   cinesNoSeleccionados: MultipleSelectorModel[];
@@ -43,7 +44,7 @@ export class CrearPeliculaComponent implements OnInit {
     console.log(pelicula);
 
     this.peliculasService.crear( pelicula )
-      .subscribe( () => console.log("Exitoso") ,
+      .subscribe( () => this.router.navigate(["/peliculas"]) ,
       err => this.errores = parsearErroresApi(err) )
   }
 

@@ -1,0 +1,33 @@
+/* .contenedorPelicula{
+  display: flex;
+  width: 450px;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: beige;
+  border-radius: 42%;
+}
+
+h2{
+  text-shadow: 1px 9px 5px rgba(150, 150, 150, 0.72);
+}
+
+img{
+  width: 100%;
+  object-fit: cover;
+  height: 500px;
+  border-radius: 15px;
+}
+
+p{
+  margin-top: 1rem;
+} */
+
+mat-chip-list{
+  display: inline-block;
+
+  margin-bottom: 0.5rem;
+}
+
+mat-chip{
+  cursor: pointer;
+}
