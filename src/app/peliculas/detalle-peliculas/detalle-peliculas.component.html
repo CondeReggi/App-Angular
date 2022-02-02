@@ -13,12 +13,13 @@
     </mat-chip-list>
     | {{ fechLanzamiento }} | Promedio: 0.0 | Tu voto: 0.0
     </div>
-    <div style="display: flex; flex-wrap: wrap; flex-direction: column; justify-content: center; align-items: center;">
+    <div style="display: flex; flex-wrap: wrap; align-items: center;">
       <span style="display: inline-block;">
         <img [src]="pelicula.poster" style="width: 225px; height: 315px; object-fit: cover;" />
       </span>
       <div *ngIf="pelicula.trailer">
         <iframe
+          style="margin-left: 1rem;"
           width="450"
           height="290"
           [src]="trailerURL"
@@ -28,27 +29,29 @@
         ></iframe>
       </div>
 
-      <div>
-        <h3>Resumen</h3>
+      <div style="margin-left: 2rem;">
         <div>
-          <markdown [data]="pelicula.resumen" ngPreserveWhitespaces></markdown>
+          <h3>Resumen</h3>
+          <div>
+            <markdown [data]="pelicula.resumen" ngPreserveWhitespaces></markdown>
+          </div>
         </div>
-      </div>
 
-      <div style="margin-top: 1rem;">
-        <h3>Actores</h3>
-        <div style="display: flex; flex-direction: column;">
-          <div *ngFor="let actor of pelicula.actores" style="margin-bottom: 2px;">
-            <img [src]="actor.foto" style="width: 50px; vertical-align: middle;"/>
-            <span style="display: inline-block; width: 200px; margin-left: 1rem;">
-              {{ actor.nombre }}
-            </span>
-            <span>{{ actor.personaje }}</span>
+        <div style="margin-top: 1rem;">
+          <h3>Actores</h3>
+          <div style="display: flex; flex-direction: column;">
+            <div *ngFor="let actor of pelicula.actores" style="margin-bottom: 2px;">
+              <img [src]="actor.foto" style="width: 50px; vertical-align: middle;"/>
+              <span style="display: inline-block; width: 200px; margin-left: 1rem;">
+                {{ actor.nombre }}
+              </span>
+              <span>{{ actor.personaje }}</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="padding-left: 1rem; position: relative; width: 100%;" *ngIf="coordenadas.length > 0">
+    <div style="padding-left: 1rem; position: relative; width: 100%; position: relative;" *ngIf="coordenadas.length > 0">
       <h2>Mostrándose en los siguientes cines</h2>
       <app-mapa [coordenadasIniciales]="coordenadas" [soloLectura]="true"></app-mapa>
     </div>

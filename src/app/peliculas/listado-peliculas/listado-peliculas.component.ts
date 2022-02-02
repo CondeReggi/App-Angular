@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PeliculasService } from '../peliculas.service';
 
 @Component({
   selector: 'app-listado-peliculas',
@@ -7,15 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListadoPeliculasComponent implements OnInit {
 
-  constructor() {
+  constructor(private peliculasServices: PeliculasService, private router: Router) {
   }
 
   @Input()
   peliculas = [];
-
-  peliculasRated = [];
-
-
 
   ngOnInit(): void {
     // for (let i = 0; i < this.peliculas.length; i++) {
@@ -24,15 +22,13 @@ export class ListadoPeliculasComponent implements OnInit {
   }
 
   remover(indicePelicula: number): void {
-    // console.log("esto es e", e);
-    // console.log("Hola, si puedo hacer console.log");
-    this.peliculas.splice(indicePelicula, 1)
-
-    console.log(this.peliculasRated);
+    this.peliculasServices.borrarPelicula( indicePelicula ).subscribe( () => {
+      window.location.reload();
+    }, err => console.log(err))
   }
 
   manejarVoto(voto: number, index: number): void {
-    this.peliculasRated[index] = voto
+    // this.peliculasRated[index] = voto
   }
 
 }

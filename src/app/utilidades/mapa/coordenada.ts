@@ -3,6 +3,6 @@ export interface Coordenada{
   longitud: number;
 }
 
-export interface CoordenadaConMensaje{
+export interface CoordenadaConMensaje extends Coordenada{
    mensaje: string;
 }

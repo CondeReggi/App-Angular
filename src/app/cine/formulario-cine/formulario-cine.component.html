@@ -8,11 +8,11 @@
   </mat-form-field>
 
   <h4>Seleccione Cine en el Mapa</h4>
-  <div>
+  <div style="position: relative; margin-bottom: 3rem;">
     <app-mapa (coordenadaSeleccionada)="coordenadaSeleccionada($event)" [coordenadasIniciales]="coordenadaInicial"></app-mapa>
   </div>
 
-  <div>
+  <div style="margin-top: 600px;">
     <button mat-flat-button color="primary" [disabled]="form.invalid">
       Guardar Cambios
     </button>
