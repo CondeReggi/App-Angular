@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RatingService } from 'src/app/rating/rating.service';
 import { CoordenadaConMensaje } from 'src/app/utilidades/mapa/coordenada';
 import { parsearErroresApi } from 'src/app/utilidades/utilidades';
 import { peliculaDTO } from '../pelicula';
@@ -13,7 +14,7 @@ import { PeliculasService } from '../peliculas.service';
 })
 export class DetallePeliculasComponent implements OnInit {
 
-  constructor(private peliculasService :  PeliculasService, private router: Router, private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer) { }
+  constructor(private peliculasService :  PeliculasService, private router: Router, private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer, private ratingService: RatingService) { }
 
   errores: string[] = [];
   pelicula: peliculaDTO;
@@ -57,6 +58,12 @@ export class DetallePeliculasComponent implements OnInit {
     }
 
     return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video_id}`)
+  }
+
+  rated(puntuacion: number){
+    this.ratingService.enviarRating(this.pelicula.id , puntuacion).subscribe( () => {
+      // Swal.fire("Exitoso", "Su voto ha sido recibido", "success"); // => No me deja usar Swal
+    }, err => console.log(err))
   }
 
 }

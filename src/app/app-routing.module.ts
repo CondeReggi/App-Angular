@@ -17,6 +17,7 @@ import { DetallePeliculasComponent } from './peliculas/detalle-peliculas/detalle
 import { EsAdminGuard } from './es-admin.guard';
 import { LoginComponent } from './seguridad/login/login.component';
 import { RegistroComponent } from './seguridad/registro/registro.component';
+import { style } from '@angular/animations';
 
 const routes: Routes = [
   {

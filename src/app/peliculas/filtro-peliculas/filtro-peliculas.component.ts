@@ -23,7 +23,14 @@ export class FiltroPeliculasComponent implements OnInit {
     private peliculasServices: PeliculasService
   ) { }
 
-  form: FormGroup;
+  form: FormGroup ;
+
+  formularioOriginal = {
+    titulo: '',
+    generoId: 0,
+    proximosEstrenos: false,
+    enCines: false,
+  };
 
   generos: generoDTO[] = []
   peliculas: peliculaDTO[] = [];
@@ -36,12 +43,7 @@ export class FiltroPeliculasComponent implements OnInit {
 
       this.generos = generos;
 
-      this.form = this.formBuilder.group({
-        titulo: '',
-        generoId: 0,
-        proximosEstrenos: false,
-        enCines: false
-      })
+      this.form = this.formBuilder.group(this.formularioOriginal)
       this.leerValoresURL()
       this.buscarPeliculas(this.form.value)
 

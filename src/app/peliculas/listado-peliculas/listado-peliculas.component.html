@@ -1,5 +1,5 @@
 <app-listado-generico [Listado]="peliculas">
-  <ng-container class="body" contenido>
+  <ng-container contenido>
     <div class="peliculas_contenedor">
       <div *ngFor="let pelicula of peliculas; let index = index" class="pelicula_container" >
         <a [routerLink]="'/peliculas/' + pelicula.id" >

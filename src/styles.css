@@ -13,7 +13,8 @@ app-root{
   width: 100%;
 }
 
-app-filtro-peliculas{
-  width: inherit;
-  height: inherit;
+app-landing-page, .ng-star-inserted{
+  width: 100%;
+  height: 100%;
 }
+

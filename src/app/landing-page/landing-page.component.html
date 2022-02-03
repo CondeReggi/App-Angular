@@ -1,23 +1,17 @@
-<app-autorizado>
-  <ng-container Autorizado>
-    esta autenticado
-  </ng-container>
-  <ng-container noAutorizado>
-    No esta autenticado
-  </ng-container>
-</app-autorizado>
+<div class="contenedorLanding">
+  <div class="containerMovies">
+    <h2>Peliculas en Cines</h2>
+    <app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
+  </div>
 
-<div class="containerMovies">
-  <h2>Peliculas en Cines</h2>
-  <app-listado-peliculas [peliculas]="peliculasEnCines"></app-listado-peliculas>
-</div>
+  <div class="containerMovies">
+    <h2>Peliculas Proximas</h2>
+    <app-listado-peliculas [peliculas]="peliculasAEstrenar"></app-listado-peliculas>
+  </div>
 
-<div class="containerMovies">
-  <h2>Peliculas Proximas</h2>
-  <app-listado-peliculas [peliculas]="peliculasAEstrenar"></app-listado-peliculas>
-</div>
+  <div class="containerMovies">
+    <h2>Peliculas Anteriores</h2>
+    <app-listado-peliculas [peliculas]="peliculasAnteriores"></app-listado-peliculas>
+  </div>
 
-<div class="containerMovies">
-  <h2>Peliculas Anteriores</h2>
-  <app-listado-peliculas [peliculas]="peliculasAnteriores"></app-listado-peliculas>
 </div>
