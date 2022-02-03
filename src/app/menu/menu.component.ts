@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SeguridadService } from '../seguridad/seguridad.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private seguridadService: SeguridadService) { }
+
+  nombre: string = this.seguridadService.obtenerCampoJWT('email');
 
   ngOnInit(): void {
+  }
+
+  logOut(){
+    this.seguridadService.logOut()
   }
 
 }

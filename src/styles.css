@@ -8,3 +8,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-width: 600px;
   margin-top: 1rem;
 }
+
+app-root{
+  width: 100%;
+}
+
+app-filtro-peliculas{
+  width: inherit;
+  height: inherit;
+}

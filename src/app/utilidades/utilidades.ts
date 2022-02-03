@@ -16,8 +16,11 @@ export function parsearErroresApi(response: any): string[] {
   if (response.error) {
     if (typeof response.error === 'string') {
       result.push(response.error)
+    } else if( Array.isArray(response.error) ) {
+      response.error.forEach( element => {
+        result.push("hola vengo de aca" + element.description)
+      });
     } else {
-
       const errores = response.error.errors;
 
       if (errores) {

@@ -12,3 +12,9 @@ mat-paginator {
   background-color: transparent;
   color: white;
 }
+
+.contenedorBuscar{
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}

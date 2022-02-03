@@ -4,6 +4,10 @@ mat-toolbar {
   top: 0;
   z-index: 2;
   box-shadow: 2px 4px 22px 0px rgba(0, 0, 0, 0.281);
+  display: flex;
+  justify-content: space-between;
 }
 
-
+app-autorizado, .options{
+  display: flex;
+}
