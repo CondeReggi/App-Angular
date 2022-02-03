@@ -1,3 +1,16 @@
 a{
   margin-right: 1rem;
 }
+
+mat-paginator {
+  background-color: transparent;
+  color: white;
+}
+
+table{
+  background-color: rgba(255, 255, 255, 0.041);
+}
+
+th, td {
+  color: white;
+}

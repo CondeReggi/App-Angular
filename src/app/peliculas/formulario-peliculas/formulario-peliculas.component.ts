@@ -53,6 +53,8 @@ export class FormularioPeliculasComponent implements OnInit {
     if (this.modelo !== undefined){
       this.form.patchValue( this.modelo )
     }
+
+    console.log(this.modelo , this.form);
   }
 
   archivoSeleccionado(archivo: File){

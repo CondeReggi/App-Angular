@@ -1,5 +1,7 @@
 .contenedor{
   padding: 50px;
+  background-color: rgb(109, 34, 179);
+  min-height: 100vh;
 }
 
 .containerMovies{
@@ -7,4 +9,8 @@
   flex-direction: column;
   gap: 25px;
   margin-bottom: 30px;
+}
+
+*{
+  color: white;
 }

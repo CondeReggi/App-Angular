@@ -1,8 +1,12 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
+import { generoDTO } from 'src/app/generos/generos';
+import { GenerosService } from 'src/app/generos/generos.service';
 import { landingPageDTO, peliculaDTO } from '../pelicula';
+import { PeliculasService } from '../peliculas.service';
 
 @Component({
   selector: 'app-filtro-peliculas',
@@ -11,116 +15,118 @@ import { landingPageDTO, peliculaDTO } from '../pelicula';
 })
 export class FiltroPeliculasComponent implements OnInit {
 
-  // constructor(private formBuilder: FormBuilder, private location: Location, private activatedRoute: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder,
+    private location: Location,
+    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    private generosServices: GenerosService,
+    private peliculasServices: PeliculasService
+  ) { }
 
-  // form: FormGroup;
+  form: FormGroup;
 
-  // generos = []
+  generos: generoDTO[] = []
+  peliculas: peliculaDTO[] = [];
+  paginaActual = 1;
+  cantidadElementosAMostrar = 10;
+  cantidadElementos;
 
-  // peliculas: peliculaDTO[] = [];
+  ngOnInit(): void {
+    this.generosServices.obtenerTodos().subscribe(generos => {
 
-  // peliculasOriginal = this.peliculas;
+      this.generos = generos;
 
-  ngOnInit(): void {}
-  //   this.form = this.formBuilder.group({
-  //     titulo: '',
-  //     generoId: 0,
-  //     proximosEstrenos: false,
-  //     enCines: false
-  //   })
-  //   this.leerValoresURL()
-  //   this.buscarPeliculas(this.form.value)
+      this.form = this.formBuilder.group({
+        titulo: '',
+        generoId: 0,
+        proximosEstrenos: false,
+        enCines: false
+      })
+      this.leerValoresURL()
+      this.buscarPeliculas(this.form.value)
 
-  //   this.form.valueChanges.subscribe( valores => {
-  //     this.peliculas = this.peliculasOriginal;
-  //     this.buscarPeliculas(valores)
-  //     this.escribirParametrosDeBusqueda()
-  //   } )
-  // }
+      this.form.valueChanges.subscribe(valores => {
+        this.buscarPeliculas(valores)
+        this.escribirParametrosDeBusqueda()
+      })
 
-  // private escribirParametrosDeBusqueda(){
-  //   var queryStrings = [];
+    }, err => console.log(err));
 
-  //   var valoresFormulario = this.form.value;
+  }
 
-  //   if ( valoresFormulario.titulo ) {
-  //     queryStrings.push( `titulo=${ valoresFormulario.titulo }` )
-  //   }
+  private escribirParametrosDeBusqueda(){
+    var queryStrings = [];
 
-  //   if ( valoresFormulario.generoId !== 0 ) {
-  //     queryStrings.push( `generoId=${ valoresFormulario.generoId }` )
-  //   }
+    var valoresFormulario = this.form.value;
 
-  //   if ( valoresFormulario.proximosEstrenos ) {
-  //     queryStrings.push( `proximosEstrenos=${ valoresFormulario.proximosEstrenos }` )
-  //   }
+    if ( valoresFormulario.titulo ) {
+      queryStrings.push( `titulo=${ valoresFormulario.titulo }` )
+    }
 
-  //   if ( valoresFormulario.enCines ) {
-  //     queryStrings.push( `enCines=${ valoresFormulario.enCines }` )
-  //   }
+    if ( valoresFormulario.generoId !== 0 ) {
+      queryStrings.push( `generoId=${ valoresFormulario.generoId }` )
+    }
 
-  //   this.location.replaceState('peliculas/buscar', queryStrings.join('&'))
-  // }
+    if ( valoresFormulario.proximosEstrenos ) {
+      queryStrings.push( `proximosEstrenos=${ valoresFormulario.proximosEstrenos }` )
+    }
 
-  // private leerValoresURL() {
-  //   this.activatedRoute.queryParams.subscribe( params => {
-  //     var objeto: any = {};
+    if ( valoresFormulario.enCines ) {
+      queryStrings.push( `enCines=${ valoresFormulario.enCines }` )
+    }
 
-  //     if ( params.titulo ){
-  //       objeto.titulo = params.titulo;
-  //     }
+    this.location.replaceState('peliculas/buscar', queryStrings.join('&'))
+  }
 
-  //     if ( params.generoId ){
-  //       objeto.generoId = Number(params.generoId);
-  //     }
+  private leerValoresURL() {
+    this.activatedRoute.queryParams.subscribe( params => {
+      var objeto: any = {};
 
-  //     if ( params.proximosEstrenos ){
-  //       objeto.proximosEstrenos = params.proximosEstrenos;
-  //     }
+      if ( params.titulo ){
+        objeto.titulo = params.titulo;
+      }
 
-  //     if ( params.enCines ){
-  //       objeto.enCines = params.enCines;
-  //     }
+      if ( params.generoId ){
+        objeto.generoId = Number(params.generoId);
+      }
 
-  //     this.form.patchValue( objeto )
-  //   } )
-  // }
+      if ( params.proximosEstrenos ){
+        objeto.proximosEstrenos = params.proximosEstrenos;
+      }
 
-  // buscarPeliculas(valores: any){
-  //   const { titulo , generoId , proximosEstrenos , enCines } = valores;
+      if ( params.enCines ){
+        objeto.enCines = params.enCines;
+      }
 
-  //   if ( titulo ) {
-  //     this.peliculas = this.peliculas.filter( x => x.titulo.indexOf(titulo) !== -1 )
-  //   }
+      this.form.patchValue( objeto )
+    } )
+  }
 
-  //   if ( generoId !== 0 ){
-  //     this.peliculas = this.peliculas.filter( x => x.generos.indexOf(generoId))
-  //   }
+  buscarPeliculas(valores: any){
+    valores.pagina = this.paginaActual;
+    valores.RecordsPorPagina = this.cantidadElementosAMostrar;
 
-  //   if ( proximosEstrenos ) {
-  //     this.peliculas = this.peliculas.filter( x => x.proximosEstrenos )
-  //   }
+    this.peliculasServices.filtrarPeliculas(valores).subscribe(peliculas => {
 
-  //   if ( proximosEstrenos ) {
-  //     this.peliculas = this.peliculas.filter( x => x.proximosEstrenos )
-  //   }
+      this.peliculas = peliculas.body;
+      this.escribirParametrosDeBusqueda();
 
-  //   if ( enCines ) {
-  //     this.peliculas = this.peliculas.filter( x => x.enCines )
-  //   }
+    }, err => console.log(err))
+  }
 
-  //   // this.peliculas = this.peliculas.filter( x => proximosEstrenos ? x.proximosEstrenos : !x.proximosEstrenos )
-  //   // this.peliculas = this.peliculas.filter( x => enCines ? x.enCines : !x.enCines )
+  limpiar(){
+    this.form.patchValue({
+      titulo: '',
+      generoId: 0,
+      proximosEstrenos: false,
+      enCines: false
+    })
+  }
 
-  // }
-
-  // limpiar(){
-  //   this.form.patchValue({
-  //     titulo: '',
-  //     generoId: 0,
-  //     proximosEstrenos: false,
-  //     enCines: false
-  //   })
-  // }
+  paginatorUpdate( event: PageEvent ){
+    this.paginaActual = event.pageIndex + 1;
+    this.cantidadElementosAMostrar = event.pageSize;
+    this.buscarPeliculas(this.form.value)
+  }
 
 }

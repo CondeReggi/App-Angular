@@ -15,7 +15,7 @@ export class GenerosService {
 
   private apiURL = environment.apiURL + 'Generos';
 
-  public obtenerTodos(pagina: number, elementosAMostrar: number): Observable<any>{
+  public obtenerPaginado(pagina: number, elementosAMostrar: number): Observable<any>{
 
     let params = new HttpParams();
 
@@ -24,6 +24,10 @@ export class GenerosService {
     // return [{ id: 1, nombre: 'Drama' }]
     return this.http.get<generoDTO[]>(this.apiURL, { observe: 'response' , params: params });
     // this.http.get<generoDTO[]>( this.apiURL ).subscribe(prop => {console.log(prop)}, error => console.error(error));
+  }
+
+  public obtenerTodos(): Observable<any>{
+    return this.http.get<generoDTO[]>(this.apiURL + "/todos");
   }
 
   public postearGenero(generoCreacion: generoCreacionDTO){

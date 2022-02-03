@@ -44,7 +44,7 @@ export class CrearPeliculaComponent implements OnInit {
     console.log(pelicula);
 
     this.peliculasService.crear( pelicula )
-      .subscribe( () => this.router.navigate(["/peliculas"]) ,
+      .subscribe( ( id: number ) => this.router.navigate(["/peliculas/" + id ]) ,
       err => this.errores = parsearErroresApi(err) )
   }
 

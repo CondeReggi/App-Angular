@@ -2,14 +2,17 @@
   <ng-container contenido>
     <div class="peliculas_contenedor">
       <div *ngFor="let pelicula of peliculas; let index = index" class="pelicula_container" >
-        <a>
+        <a [routerLink]="'/peliculas/' + pelicula.id" >
           <img [src]="pelicula.poster" alt="Poster" >
         </a>
         <p>
           <a>{{ pelicula.titulo }}</a>
         </p>
+        <p>
+          {{ pelicula.resumen }}
+        </p>
         <div>
-          <a mat-flat-button color="primary">
+          <a mat-flat-button color="primary" [routerLink]="'/peliculas/editar/' + pelicula.id" >
             Editar
           </a>
           <button (click)="remover(pelicula.id)" mat-flat-button color="warn" type="button">Borrar</button>

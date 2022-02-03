@@ -19,6 +19,8 @@ export class ListadoPeliculasComponent implements OnInit {
     // for (let i = 0; i < this.peliculas.length; i++) {
     //   this.peliculasRated[i] = null;
     // }
+
+    console.log(this.peliculas);
   }
 
   remover(indicePelicula: number): void {
