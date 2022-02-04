@@ -1,21 +1,6 @@
 .contenedor{
   background-color: rgb(109, 34, 179);
-  width: 100%;
   min-height: 100vh;
+
 }
 
-.containerMovies{
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  margin-bottom: 30px;
-}
-
-*{
-  color: white;
-}
-
-.rutas{
-  width: 100%;
-  height: 100%;
-}

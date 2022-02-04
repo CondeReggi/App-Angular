@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { credencialesUsuario, respuestaAutenticacion } from './seguridad';
+import { credencialesUsuario, respuestaAutenticacion, UsuarioDTO } from './seguridad';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +10,13 @@ import { credencialesUsuario, respuestaAutenticacion } from './seguridad';
 export class SeguridadService {
 
   constructor(private http: HttpClient) { }
-
-  rolUsuario: string = "admin";
-  rolDefault: string = "admin";
   apiUrl = environment.apiURL + "cuentas";
 
   private readonly llaveToken = "token";
   private readonly llaveExpiracion = "token-expiracion"
+  private readonly campoRol = 'role';
 
-  estaLogeado(rol: string): boolean{
+  estaLogeado(): boolean{
     const token = localStorage.getItem(this.llaveToken);
     if(!token){
       return false;
@@ -32,19 +30,47 @@ export class SeguridadService {
     return true;
   }
 
+  obtenerToken(): string{
+    return localStorage.getItem(this.llaveToken);
+  }
+
+  obtenerTodosLosUsuarios(pagina: number, recordsPorPagina: number): Observable<any>{
+    let params = new HttpParams();
+    params = params.append("pagina", pagina.toString());
+    params = params.append("recordsPorPagina", recordsPorPagina.toString());
+
+    return this.http.get<UsuarioDTO[]>(`${this.apiUrl}/listadoUsuarios`, { observe: 'response',  params} );
+  }
+
+  hacerAdmin(usuario: string){
+    const headers = new HttpHeaders('Content-Type: application/json');
+    return this.http.post(`${this.apiUrl}/HacerAdmin`, JSON.stringify(usuario), {headers});
+  }
+
+  removerAdmin(usuario: string){
+    const headers = new HttpHeaders('Content-Type: application/json');
+    return this.http.post(`${this.apiUrl}/HacerAdmin`, JSON.stringify(usuario), {headers});
+  }
+
   obtenerRol(): string{
-    return this.rolUsuario ? this.rolUsuario : this.rolDefault;
+    console.log("hola" , this.campoRol , this.obtenerCampoJWT(this.campoRol));
+    return this.obtenerCampoJWT(this.campoRol);
   }
 
   obtenerCampoJWT(campo: string): string{
     const token = localStorage.getItem(this.llaveToken);
-
-    if(!token){
-      return '';
-    }
-
+    if (!token){return '';}
     var dataToken = JSON.parse(atob(token.split('.')[1]));
-    return dataToken[campo].split('@')[0];
+    var mail = dataToken[campo];
+
+
+    // console.log( JSON.parse(atob(token.split('.')[1])) , campo, dataToken["rol"]);
+    // console.log(typeof(mail) , mail.toString().indexOf('@'));
+
+    return mail;
+
+    // var indexArroba = mail.indexOf('@');
+    // return mail.substring(0, indexArroba);
   }
 
   logOut(){

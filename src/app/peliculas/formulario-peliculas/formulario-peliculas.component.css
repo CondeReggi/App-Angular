@@ -13,3 +13,8 @@ button{
 .inputImage{
   margin: 15px 0;
 }
+
+h4{
+  margin-top: 30px;
+  font-weight: bold;
+}

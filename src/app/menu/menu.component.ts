@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
   nombre: string = this.seguridadService.obtenerCampoJWT('email');
 
   ngOnInit(): void {
+    // console.log(this.seguridadService.obtenerCampoJWT('email'));
   }
 
   logOut(){

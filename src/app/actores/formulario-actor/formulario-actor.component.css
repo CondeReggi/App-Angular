@@ -1,15 +1,11 @@
-form{
+form {
   max-width: 500px;
 }
 
-mat-form-field{
+mat-form-field {
   width: 100%;
 }
 
-button{
+button {
   margin-right: 1rem;
-}
-
-.inputImage{
-  margin: 15px 0;
 }

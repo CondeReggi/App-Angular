@@ -16,9 +16,10 @@ export class EsAdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      console.log("estoy aca adentro, y mi rol es:" , this.seguridadService.obtenerRol());
+    console.log("estoy aca adentro, y mi rol es:", this.seguridadService.obtenerRol());
 
     if (this.seguridadService.obtenerRol() === 'admin') {
+      // console.log("entre");
       return true;
     }
 

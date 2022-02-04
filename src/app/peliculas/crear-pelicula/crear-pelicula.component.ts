@@ -21,6 +21,8 @@ export class CrearPeliculaComponent implements OnInit {
   ngOnInit(): void {
     this.peliculasService.postGet().subscribe( result => {
 
+      console.log(result);
+
       this.generosNoSeleccionados = result.generos.map( genero => {
         return <MultipleSelectorModel>{
           llave: genero.id,

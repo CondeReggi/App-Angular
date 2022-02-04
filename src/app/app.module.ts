@@ -34,13 +34,15 @@ import { MapaComponent } from './utilidades/mapa/mapa.component';
 import { FormularioPeliculasComponent } from './peliculas/formulario-peliculas/formulario-peliculas.component';
 import { SelectorMultipleComponent } from './utilidades/selector-multiple/selector-multiple.component';
 import { AutocompleteActoresComponent } from './actores/autocomplete-actores/autocomplete-actores.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MostrarErroresComponent } from './utilidades/mostrar-errores/mostrar-errores.component';
 import { DetallePeliculasComponent } from './peliculas/detalle-peliculas/detalle-peliculas.component';
 import { AutorizadoComponent } from './seguridad/autorizado/autorizado.component';
 import { LoginComponent } from './seguridad/login/login.component';
 import { RegistroComponent } from './seguridad/registro/registro.component';
 import { FormularioAutenticacionComponent } from './seguridad/formulario-autenticacion/formulario-autenticacion.component'
+import { SeguridadInterceptorService } from './seguridad/seguridad-interceptor.service';
+import { IndiceUsuariosComponent } from './seguridad/indice-usuarios/indice-usuarios.component';
 
 
 @NgModule({
@@ -78,7 +80,8 @@ import { FormularioAutenticacionComponent } from './seguridad/formulario-autenti
     AutorizadoComponent,
     LoginComponent,
     RegistroComponent,
-    FormularioAutenticacionComponent
+    FormularioAutenticacionComponent,
+    IndiceUsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,11 @@ import { FormularioAutenticacionComponent } from './seguridad/formulario-autenti
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: SeguridadInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,3 +4,7 @@
   gap: 15px;
   margin-bottom: 15px;
 }
+
+mat-paginator{
+  background-color: transparent;
+}

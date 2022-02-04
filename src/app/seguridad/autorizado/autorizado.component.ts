@@ -19,11 +19,10 @@ export class AutorizadoComponent implements OnInit {
   }
 
   estaAutorizado(): boolean {
-    if ( this.seguridadService.obtenerRol() === 'admin'){
-      return this.seguridadService.estaLogeado('admin');
-    }else{
-      return this.seguridadService.estaLogeado('cliente');
+    if (this.rol){
+      return this.seguridadService.obtenerRol() === this.rol;
+    } else{
+      return this.seguridadService.estaLogeado();
     }
   }
-
 }

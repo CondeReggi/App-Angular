@@ -3,18 +3,21 @@
 /* html, body { height: 100%; } */
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.tabla_indice{
-  width: 100%;
-  max-width: 600px;
-  margin-top: 1rem;
+.containerTable{
+  width: 100%; height: 100%; margin-top: 30px;
 }
 
-app-root{
-  width: 100%;
+*{
+  color: white;
 }
 
-app-landing-page, .ng-star-inserted{
-  width: 100%;
-  height: 100%;
+.contenedor{
+  padding: 50px;
 }
+
+mat-paginator {
+  background-color: transparent;
+  color: white;
+}
+
 
