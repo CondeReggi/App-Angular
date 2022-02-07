@@ -125,6 +125,20 @@ export class FiltroPeliculasComponent implements OnInit {
     })
   }
 
+  // cargarRegistros(pagina: number, cantidadElementosAMostrar){
+  //   this.seguridadServices.obtenerTodosLosUsuarios( pagina, cantidadElementosAMostrar ).subscribe((resp: HttpResponse<UsuarioDTO[]>) => {
+  //     this.usuarios = resp.body;
+  //     // console.log(resp.headers.get("cantidadTotalRegistros"));
+  //     this.cantidadTotalRegistros = resp.headers.get("cantidadTotalRegistros");
+  //   }, error => console.error(error));
+  // }
+
+  // actualizarPaginacion(datos: PageEvent){
+  //   this.paginaActual = datos.pageIndex + 1;
+  //   this.cantidadRegistrosAMostrar = datos.pageSize;
+  //   this.cargarRegistros( this.paginaActual , this.cantidadRegistrosAMostrar );
+  // }
+
   paginatorUpdate( event: PageEvent ){
     this.paginaActual = event.pageIndex + 1;
     this.cantidadElementosAMostrar = event.pageSize;

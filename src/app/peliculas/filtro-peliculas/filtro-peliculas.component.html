@@ -5,7 +5,7 @@
   <mat-spinner *ngIf="!peliculas"></mat-spinner>
 
   <div class="contenedorOpciones">
-    <form [formGroup]="form" *ngIf="peliculas">
+    <form style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px;" [formGroup]="form" *ngIf="peliculas">
       <mat-form-field appearance="outline">
         <mat-label>Título</mat-label>
         <input formControlName="titulo" matInput />
@@ -14,8 +14,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Género</mat-label>
         <mat-select formControlName="generoId">
-          <mat-option [value]="0">--Seleccione un genero--</mat-option>
-          <mat-option *ngFor="let genero of generos" [value]="genero.id">{{genero.nombre}}</mat-option>
+          <mat-option [value]="0"><p style="color: black;">--Seleccione un genero--</p></mat-option>
+          <mat-option *ngFor="let genero of generos" [value]="genero.id"><p style="color: black;">{{genero.nombre}}</p></mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -34,7 +34,7 @@
 
     <app-listado-peliculas [peliculas]="peliculas"></app-listado-peliculas>
 
-    <mat-paginator [length]="cantidadElementos" [pageSize]="cantidadElementosAMostrar" [pageSizeOptions]="[5, 10, 20]"
+    <mat-paginator style="background-color: transparent;" showFirstLastButtons [length]="cantidadElementos" [pageSize]="cantidadElementosAMostrar" [pageSizeOptions]="[1, 5, 10, 20]"
       (page)="paginatorUpdate($event)"></mat-paginator>
   </div>
 

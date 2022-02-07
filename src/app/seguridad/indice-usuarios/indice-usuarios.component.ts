@@ -49,15 +49,7 @@ export class IndiceUsuariosComponent implements OnInit {
     this.cargarRegistros( this.paginaActual , this.cantidadRegistrosAMostrar );
   }
 
-
-  //-------------------------------------------------------------
-
-
-
-
-
-
-
+  //------------------------------------------------------------
     // borrarRegistroGenero(id: number){
     //Crear Metodo para borrar
 
@@ -68,9 +60,4 @@ export class IndiceUsuariosComponent implements OnInit {
     //     console.log(error);
     //   })
     // }
-
-
-
-
-
 }
